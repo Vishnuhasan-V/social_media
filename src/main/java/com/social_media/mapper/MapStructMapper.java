@@ -8,14 +8,11 @@ import com.social_media.entity.Comment;
 import com.social_media.entity.User;
 import com.social_media.entity.Like;
 import com.social_media.entity.Post;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import java.util.List;
 
 
 @Mapper(componentModel = "spring")
-public interface EntityMapper {
+public interface MapStructMapper {
 
     User toUser(UserDto userDto);
     UserDto toUserDto(User user);

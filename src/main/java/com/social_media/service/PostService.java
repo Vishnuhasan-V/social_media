@@ -3,7 +3,7 @@ package com.social_media.service;
 import com.social_media.dao.PostDao;
 import com.social_media.dto.PostDto;
 import com.social_media.entity.Post;
-import com.social_media.mapper.EntityMapper;
+import com.social_media.mapper.MapStructMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class PostService {
 
     public final PostDao postDao;
-    private final EntityMapper mapper;
+    private final MapStructMapper mapper;
 
     public PostDto createPost(PostDto postDto){
         Post post = mapper.toPost(postDto);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserDao {
-    public final UserRepository repository;
+    private final UserRepository repository;
     public User createUser(User user){
         return repository.save(user);
     }

@@ -22,4 +22,21 @@ public class PostController {
     public ResponseEntity<List<PostDto>> getPosts(@PathVariable int userId){
         return new ResponseEntity<>(postService.getPosts(userId), HttpStatus.OK);
     }
+
+    private void validateRequest(PostDto postDto){
+        if(isValidId(postDto.getUserId())){
+            throw new RuntimeException("User Id should be valid");
+        }
+        if(isValidContent(postDto.getContent())){
+            throw new RuntimeException("Content can not be empty");
+        }
+    }
+
+    private boolean isValidId(int userId){
+        return userId > 0;
+    }
+
+    private boolean isValidContent(String content){
+        return content != null && !content.trim().isEmpty();
+    }
 }

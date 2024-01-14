@@ -1,6 +1,5 @@
 package com.social_media.controller;
 
-import com.social_media.dto.CommentDto;
 import com.social_media.dto.LikeDto;
 import com.social_media.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +26,19 @@ public class LikeController {
     @GetMapping("post/{postId}/likes")
     public ResponseEntity<List<LikeDto>> getLikes(@PathVariable int postId){
         return new ResponseEntity<>(likeService.getLikes(postId), HttpStatus.OK);
+    }
+
+    private void validateRequest(LikeDto likeDto){
+        if(isValidId(likeDto.getUserId())){
+            throw new RuntimeException("User Id should be valid");
+        }
+        if(isValidId(likeDto.getPostId())){
+            throw new RuntimeException("Post Id should be valid");
+        }
+
+    }
+
+    private boolean isValidId(int userId){
+        return userId > 0;
     }
 }

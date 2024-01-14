@@ -1,6 +1,7 @@
 package com.social_media.controller;
 
 import com.social_media.dto.CommentDto;
+import com.social_media.exception.InvalidRequestException;
 import com.social_media.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,10 @@ public class CommentController {
 
     private void validateRequest(CommentDto commentDto){
         if(isValidId(commentDto.getUserId())){
-            throw new RuntimeException("User Id should be valid");
+            throw new InvalidRequestException("User Id should be valid");
         }
         if(isValidId(commentDto.getPostId())){
-            throw new RuntimeException("Post Id should be valid");
+            throw new InvalidRequestException("Post Id should be valid");
         }
 
     }

@@ -1,6 +1,7 @@
 package com.social_media.controller;
 
 import com.social_media.dto.LikeDto;
+import com.social_media.exception.InvalidRequestException;
 import com.social_media.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,10 +31,10 @@ public class LikeController {
 
     private void validateRequest(LikeDto likeDto){
         if(isValidId(likeDto.getUserId())){
-            throw new RuntimeException("User Id should be valid");
+            throw new InvalidRequestException("User Id should be valid");
         }
         if(isValidId(likeDto.getPostId())){
-            throw new RuntimeException("Post Id should be valid");
+            throw new InvalidRequestException("Post Id should be valid");
         }
 
     }

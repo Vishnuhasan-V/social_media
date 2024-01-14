@@ -2,6 +2,7 @@ package com.social_media.controller;
 
 
 import com.social_media.dto.UserDto;
+import com.social_media.exception.InvalidRequestException;
 import com.social_media.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,13 +29,13 @@ public class UserController {
     private void validateRequest(UserDto userDto){
 
         if (!isValidEmail(userDto.getEmail())){
-            throw new RuntimeException("Email should be valid");
+            throw new InvalidRequestException("Email should be valid");
         }
         if (!isValidName(userDto.getName())){
-            throw new RuntimeException("Name should be valid");
+            throw new InvalidRequestException("Name should be valid");
         }
         if (!isValidPassword(userDto.getPassword())){
-            throw new RuntimeException("Password should be valid");
+            throw new InvalidRequestException("Password should be valid");
         }
     }
 

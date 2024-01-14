@@ -1,6 +1,7 @@
 package com.social_media.controller;
 
 import com.social_media.dto.PostDto;
+import com.social_media.exception.InvalidRequestException;
 import com.social_media.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,10 +26,10 @@ public class PostController {
 
     private void validateRequest(PostDto postDto){
         if(isValidId(postDto.getUserId())){
-            throw new RuntimeException("User Id should be valid");
+            throw new InvalidRequestException("User Id should be valid");
         }
         if(isValidContent(postDto.getContent())){
-            throw new RuntimeException("Content can not be empty");
+            throw new InvalidRequestException("Content can not be empty");
         }
     }
 

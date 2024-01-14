@@ -2,6 +2,7 @@ package com.social_media.controller;
 
 import com.social_media.dto.PostDto;
 import com.social_media.exception.InvalidRequestException;
+import com.social_media.response.SpdResponse;
 import com.social_media.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,19 @@ public class PostController {
     PostService postService;
 
     @PostMapping("/add-post")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto){
-        return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
+    public ResponseEntity<SpdResponse<PostDto>> createPost(@RequestBody PostDto postDto){
+        validateRequest(postDto);
+        SpdResponse<PostDto> spdResponse = new SpdResponse<>();
+        spdResponse.setData(postService.createPost(postDto));
+        spdResponse.setSuccessMsg("Post created successfully");
+        return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
     }
     @GetMapping("user/{userId}/likes")
-    public ResponseEntity<List<PostDto>> getPosts(@PathVariable int userId){
-        return new ResponseEntity<>(postService.getPosts(userId), HttpStatus.OK);
+    public ResponseEntity<SpdResponse<List<PostDto>>> getPosts(@PathVariable int userId){
+        validateId(userId);
+        SpdResponse<List<PostDto>> spdResponse = new SpdResponse<>();
+        spdResponse.setData(postService.getPosts(userId));
+        return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
     private void validateRequest(PostDto postDto){
@@ -30,6 +38,12 @@ public class PostController {
         }
         if(isValidContent(postDto.getContent())){
             throw new InvalidRequestException("Content can not be empty");
+        }
+    }
+
+    private void validateId(int id){
+        if(isValidId(id)){
+            throw new InvalidRequestException("User Id should be valid");
         }
     }
 

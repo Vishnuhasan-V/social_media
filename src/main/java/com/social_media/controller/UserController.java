@@ -3,6 +3,7 @@ package com.social_media.controller;
 
 import com.social_media.dto.UserDto;
 import com.social_media.exception.InvalidRequestException;
+import com.social_media.response.SpdResponse;
 import com.social_media.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,12 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/add-user")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
+    public ResponseEntity<SpdResponse<UserDto>> createUser(@RequestBody UserDto userDto){
         validateRequest(userDto);
-        return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.CREATED);
+        SpdResponse<UserDto> spdResponse = new SpdResponse<>();
+        spdResponse.setData(userService.createUser(userDto));
+        spdResponse.setSuccessMsg("User created successfully");
+        return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
     }
 
     private void validateRequest(UserDto userDto){

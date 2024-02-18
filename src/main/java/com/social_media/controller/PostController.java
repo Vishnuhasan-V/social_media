@@ -24,25 +24,32 @@ public class PostController {
         spdResponse.setSuccessMsg("Post created successfully");
         return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
     }
-    @GetMapping("user/{userId}/likes")
-    public ResponseEntity<SpdResponse<List<PostDto>>> getPosts(@PathVariable int userId){
+    @GetMapping("/user/{userId}/posts")
+    public ResponseEntity<SpdResponse<List<PostDto>>> getPostsByUser(@PathVariable int userId){
         validateId(userId);
         SpdResponse<List<PostDto>> spdResponse = new SpdResponse<>();
         spdResponse.setData(postService.getPosts(userId));
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/post")
+    public ResponseEntity<SpdResponse<PostDto>> getPost(@RequestParam("id") int postId){
+        validateId(postId);
+        SpdResponse<PostDto> spdResponse = new SpdResponse<>();
+        spdResponse.setData(postService.getPost(postId));
+        return new ResponseEntity<>(spdResponse, HttpStatus.OK);
+    }
     private void validateRequest(PostDto postDto){
-        if(isValidId(postDto.getUserId())){
+        if(!isValidId(postDto.getUserId())){
             throw new InvalidRequestException("User Id should be valid");
         }
-        if(isValidContent(postDto.getContent())){
+        if(!isValidContent(postDto.getContent())){
             throw new InvalidRequestException("Content can not be empty");
         }
     }
 
     private void validateId(int id){
-        if(isValidId(id)){
+        if(!isValidId(id)){
             throw new InvalidRequestException("User Id should be valid");
         }
     }

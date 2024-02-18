@@ -24,6 +24,11 @@ public class PostService {
         Post post = mapper.toPost(postDto);
         return mapper.toPostDto(repository.save(post));
     }
+
+    public PostDto getPost(int postId){
+        return mapper.toPostDto(repository.findPostById(postId));
+    }
+
     public List<PostDto> getPosts(int userId){
         return mapper.postListToPostDtoList(repository.findByUserId(userId));
     }

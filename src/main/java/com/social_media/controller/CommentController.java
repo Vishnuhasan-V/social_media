@@ -25,15 +25,15 @@ public class CommentController {
         return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/comment/{id}")
-    public ResponseEntity<SpdResponse<CommentDto>> getComment(@PathVariable int id){
+    @GetMapping("/comment")
+    public ResponseEntity<SpdResponse<CommentDto>> getComment(@RequestParam("id") int id){
         validateId(id);
         SpdResponse<CommentDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(commentService.getComment(id));
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
-    @GetMapping("post/{postId}/comments")
+    @GetMapping("/post/{postId}/comments")
     public ResponseEntity<SpdResponse<List<CommentDto>>> getComments(@PathVariable int postId){
         validateId(postId);
         SpdResponse<List<CommentDto>> spdResponse = new SpdResponse<>();
@@ -42,16 +42,16 @@ public class CommentController {
     }
 
     private void validateRequest(CommentDto commentDto){
-        if(isValidId(commentDto.getUserId())){
+        if(!isValidId(commentDto.getUserId())){
             throw new InvalidRequestException("User Id should be valid");
         }
-        if(isValidId(commentDto.getPostId())){
+        if(!isValidId(commentDto.getPostId())){
             throw new InvalidRequestException("Post Id should be valid");
         }
 
     }
     private void validateId(int id){
-        if(isValidId(id)){
+        if(!isValidId(id)){
             throw new InvalidRequestException("User Id should be valid");
         }
     }

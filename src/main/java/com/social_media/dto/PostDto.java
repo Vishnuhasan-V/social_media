@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDto {
     private int id;
     private int userId;
     private String content;
+    private List<CommentDto> comments;
+    private List<LikeDto> likes;
 
     public int getId() {
         return id;
@@ -33,5 +37,21 @@ public class PostDto {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<CommentDto> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDto> comments) {
+        this.comments = comments;
+    }
+
+    public List<LikeDto> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<LikeDto> likes) {
+        this.likes = likes;
     }
 }

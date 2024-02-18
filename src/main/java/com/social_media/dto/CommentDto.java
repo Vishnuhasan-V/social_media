@@ -10,7 +10,7 @@ public class CommentDto {
     private int id;
     private int postId;
     private int userId;
-    private String text;
+    private String commentText;
 
     public int getId() {
         return id;
@@ -36,11 +36,11 @@ public class CommentDto {
         this.userId = userId;
     }
 
-    public String getText() {
-        return text;
+    public String getCommentText() {
+        return commentText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
     }
 }

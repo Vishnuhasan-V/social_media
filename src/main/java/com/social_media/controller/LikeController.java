@@ -49,7 +49,7 @@ public class LikeController {
 
     }
     private void validateId(int id){
-        if(isValidId(id)){
+        if(!isValidId(id)){
             throw new InvalidRequestException("User Id should be valid");
         }
     }

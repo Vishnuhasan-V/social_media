@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     private final UserRepository repository;
 
     private final MapStructMapper mapper;
+
+    public UserService(UserRepository repository, MapStructMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public UserDto createUser(UserDto userDto){
         User user = mapper.toUser(userDto);

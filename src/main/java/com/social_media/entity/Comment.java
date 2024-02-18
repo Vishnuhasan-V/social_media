@@ -20,9 +20,9 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private int userId;
 
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "text")
+    private String text;
 }

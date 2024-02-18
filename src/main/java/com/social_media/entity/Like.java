@@ -20,6 +20,6 @@ public class Like {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private int userId;
 }

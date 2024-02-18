@@ -9,6 +9,7 @@ import com.social_media.entity.User;
 import com.social_media.entity.Like;
 import com.social_media.entity.Post;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 

@@ -30,6 +30,7 @@ public class CommentController {
         validateId(id);
         SpdResponse<CommentDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(commentService.getComment(id));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
@@ -38,6 +39,7 @@ public class CommentController {
         validateId(postId);
         SpdResponse<List<CommentDto>> spdResponse = new SpdResponse<>();
         spdResponse.setData(commentService.getComments(postId));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 

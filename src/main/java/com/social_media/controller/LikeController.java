@@ -21,6 +21,7 @@ public class LikeController {
         validateRequest(likeDto);
         SpdResponse<LikeDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(likeService.addLike(likeDto));
+        spdResponse.setSuccessMsg("Like added successfully");
         return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
     }
     @GetMapping("/like")
@@ -28,6 +29,7 @@ public class LikeController {
         validateId(id);
         SpdResponse<LikeDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(likeService.getLike(id));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
@@ -36,6 +38,7 @@ public class LikeController {
         validateId(postId);
         SpdResponse<List<LikeDto>> spdResponse = new SpdResponse<>();
         spdResponse.setData(likeService.getLikes(postId));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 

@@ -29,6 +29,7 @@ public class PostController {
         validateId(userId);
         SpdResponse<List<PostDto>> spdResponse = new SpdResponse<>();
         spdResponse.setData(postService.getPosts(userId));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
@@ -37,6 +38,7 @@ public class PostController {
         validateId(postId);
         SpdResponse<PostDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(postService.getPost(postId));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
     private void validateRequest(PostDto postDto){

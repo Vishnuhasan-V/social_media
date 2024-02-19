@@ -1,2 +1,13 @@
+# Maven target directory
+**/target/
 
-target/classes
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Spring Boot
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/application.properties

@@ -1,22 +1,61 @@
 package com.social_media.controller;
 
 import com.social_media.dto.CommentDto;
-import com.social_media.dto.LikeDto;
+import com.social_media.exception.InvalidRequestException;
+import com.social_media.response.SpdResponse;
 import com.social_media.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/comment")
-    public ResponseEntity<CommentDto> addComment(@RequestBody CommentDto commentDto){
-        return new ResponseEntity<>(commentService.addComment(commentDto), HttpStatus.CREATED);
+    @PostMapping("/add-comment")
+    public ResponseEntity<SpdResponse<CommentDto>> addComment(@RequestBody CommentDto commentDto){
+        validateRequest(commentDto);
+        SpdResponse<CommentDto> spdResponse = new SpdResponse<>();
+        spdResponse.setData(commentService.addComment(commentDto));
+        spdResponse.setSuccessMsg("Comment added successfully");
+        return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/comment/{id}")
+    public ResponseEntity<SpdResponse<CommentDto>> getComment(@PathVariable int id){
+        validateId(id);
+        SpdResponse<CommentDto> spdResponse = new SpdResponse<>();
+        spdResponse.setData(commentService.getComment(id));
+        return new ResponseEntity<>(spdResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("post/{postId}/comments")
+    public ResponseEntity<SpdResponse<List<CommentDto>>> getComments(@PathVariable int postId){
+        validateId(postId);
+        SpdResponse<List<CommentDto>> spdResponse = new SpdResponse<>();
+        spdResponse.setData(commentService.getComments(postId));
+        return new ResponseEntity<>(spdResponse, HttpStatus.OK);
+    }
+
+    private void validateRequest(CommentDto commentDto){
+        if(isValidId(commentDto.getUserId())){
+            throw new InvalidRequestException("User Id should be valid");
+        }
+        if(isValidId(commentDto.getPostId())){
+            throw new InvalidRequestException("Post Id should be valid");
+        }
+
+    }
+    private void validateId(int id){
+        if(isValidId(id)){
+            throw new InvalidRequestException("User Id should be valid");
+        }
+    }
+    private boolean isValidId(int userId){
+        return userId > 0;
     }
 }

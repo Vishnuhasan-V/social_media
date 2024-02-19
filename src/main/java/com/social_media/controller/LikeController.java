@@ -21,35 +21,38 @@ public class LikeController {
         validateRequest(likeDto);
         SpdResponse<LikeDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(likeService.addLike(likeDto));
+        spdResponse.setSuccessMsg("Like added successfully");
         return new ResponseEntity<>(spdResponse, HttpStatus.CREATED);
     }
-    @GetMapping("/like/{id}")
-    public ResponseEntity<SpdResponse<LikeDto>> getLike(@PathVariable int id){
+    @GetMapping("/like")
+    public ResponseEntity<SpdResponse<LikeDto>> getLike(@RequestParam("id") int id){
         validateId(id);
         SpdResponse<LikeDto> spdResponse = new SpdResponse<>();
         spdResponse.setData(likeService.getLike(id));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
-    @GetMapping("post/{postId}/likes")
+    @GetMapping("/post/{postId}/likes")
     public ResponseEntity<SpdResponse<List<LikeDto>>> getLikes(@PathVariable int postId){
         validateId(postId);
         SpdResponse<List<LikeDto>> spdResponse = new SpdResponse<>();
         spdResponse.setData(likeService.getLikes(postId));
+        spdResponse.setSuccessMsg("Done");
         return new ResponseEntity<>(spdResponse, HttpStatus.OK);
     }
 
     private void validateRequest(LikeDto likeDto){
-        if(isValidId(likeDto.getUserId())){
+        if(!isValidId(likeDto.getUserId())){
             throw new InvalidRequestException("User Id should be valid");
         }
-        if(isValidId(likeDto.getPostId())){
+        if(!isValidId(likeDto.getPostId())){
             throw new InvalidRequestException("Post Id should be valid");
         }
 
     }
     private void validateId(int id){
-        if(isValidId(id)){
+        if(!isValidId(id)){
             throw new InvalidRequestException("User Id should be valid");
         }
     }

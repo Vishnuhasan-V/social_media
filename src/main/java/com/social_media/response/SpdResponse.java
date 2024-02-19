@@ -3,12 +3,13 @@ package com.social_media.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.social_media.response.error.SpdErrorResponse;
 
+
 public class SpdResponse<T> {
     @JsonProperty("data")
     private T data;
-    @JsonProperty("successMsg")
+    @JsonProperty("success_msg")
     protected String successMsg;
-    @JsonProperty("errorMsg")
+    @JsonProperty("error_msg")
     protected String errorMsg;
     @JsonProperty("error")
     private SpdErrorResponse spdErrorResponse;
@@ -25,7 +26,7 @@ public class SpdResponse<T> {
         return this.successMsg;
     }
 
-    @JsonProperty("successMsg")
+    @JsonProperty("success_msg")
     public void setSuccessMsg(final String successMsg) {
         this.successMsg = successMsg;
     }
@@ -34,7 +35,7 @@ public class SpdResponse<T> {
         return this.errorMsg;
     }
 
-    @JsonProperty("errorMsg")
+    @JsonProperty("error_msg")
     public void setErrorMsg(final String errorMsg) {
         this.errorMsg = errorMsg;
     }

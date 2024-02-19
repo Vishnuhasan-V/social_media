@@ -10,22 +10,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class LikeService {
 
-    private final LikeRepository repository;
+    private LikeRepository repository;
 
-    private final MapStructMapper mapper;
+    private MapStructMapper mapper;
+
+    public LikeService(LikeRepository repository, MapStructMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
     public LikeDto addLike(LikeDto likeDto){
         Like like = mapper.toLike(likeDto);
         return mapper.toLikeDto(repository.save(like));
     }
 
     public LikeDto getLike(int id){
-        return mapper.toLikeDto(repository.findLikeById(id));
+        return mapper.toLikeDto(repository.findById(id));
     }
 
     public List<LikeDto> getLikes(int postId){
-        return mapper.likeListToLikeDtoList(repository.findLikesPostId(postId));
+        return mapper.likeListToLikeDtoList(repository.findByPostId(postId));
     }
 }

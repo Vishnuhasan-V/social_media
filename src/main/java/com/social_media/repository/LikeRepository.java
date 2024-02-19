@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like,Integer> {
-    Like findLikeById(int id);
-    List<Like> findLikesPostId(int postId);
+    Like findById(int id);
+    List<Like> findByPostId(int postId);
+
 }
